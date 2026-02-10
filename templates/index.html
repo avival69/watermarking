@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Watermark Encoder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div class="badge">Spread Watermark v2</div>
+        <h1>Recorder-Friendly Encoding Studio</h1>
+        <p>
+          Flat layout, fixed 16:9 preview, and focus mode for cleaner screen capture.
+        </p>
+      </header>
+
+      <section class="workspace">
+        <aside class="panel controls-panel">
+          <form id="encode-form" class="form">
+            <label class="label" for="user-id">User ID</label>
+            <div class="row">
+              <input
+                id="user-id"
+                name="user-id"
+                type="text"
+                placeholder="e.g. Ashwin"
+                autocomplete="off"
+                required
+              />
+              <button type="submit" id="encode-btn">Start Encoding</button>
+            </div>
+            <div class="status" id="status">Enter a User ID and click Start Encoding.</div>
+          </form>
+
+          <div class="notes">
+            <h2>Screen Record Tips</h2>
+            <ul>
+              <li>Use Focus Mode to record only the preview stage.</li>
+              <li>Keep tab visible during encoding for stable timing.</li>
+              <li>Download the server MP4 for best decoding accuracy.</li>
+            </ul>
+          </div>
+        </aside>
+
+        <section class="panel stage-panel">
+          <div class="stage-wrap">
+            <video id="source-video" style="display:none" playsinline muted></video>
+            <canvas id="preview-canvas" aria-label="Watermark preview stage"></canvas>
+            <div id="countdown-overlay" class="countdown hidden" aria-live="polite"></div>
+          </div>
+
+          <div class="video-controls">
+            <div class="control-group">
+              <button id="play-btn" class="ctrl-btn primary" disabled>Play</button>
+              <button id="pause-btn" class="ctrl-btn" disabled>Pause</button>
+              <button id="focus-btn" class="ctrl-btn">Focus Mode</button>
+            </div>
+            <span id="time-display" class="time-display">0:00 / 0:00</span>
+          </div>
+
+          <div class="actions">
+            <button id="download-btn" class="download disabled" disabled>
+              Download Encoded Video
+            </button>
+            <span class="hint">Decode: <code>python decoder.py &lt;video&gt;</code></span>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
